@@ -1,0 +1,6 @@
+# input and output files
+*.netxml
+*.csv
+
+# python virtual environment
+*.venv/
