@@ -82,28 +82,28 @@ def main(args):
                                     essid = s.string
                                     cloaked = s.attrs['cloaked']
 
-                        if child.name == 'bssid':
+                        elif child.name == 'bssid':
                             bssid = child.string
 
-                        if child.name == 'manuf':
+                        elif child.name == 'manuf':
                             manuf = child.string
 
-                        if child.name == 'channel':
+                        elif child.name == 'channel':
                             channel = child.string
 
-                        if child.name == 'freqmhz':
+                        elif child.name == 'freqmhz':
                             freqmhz = child.string
                         
-                        if child.name == 'carrier':
+                        elif child.name == 'carrier':
                             carrier = child.string
 
-                        if child.name == 'snr-info':
+                        elif child.name == 'snr-info':
                             for s in child.children:
                                 if s.name == 'last_signal_rssi':
                                     last_signal_rssi = s.string
                                     break
 
-                        if child.name == 'gps-info':
+                        elif child.name == 'gps-info':
                             for s in child.children:
                                 if s.name == 'avg-lat':
                                     latitude = s.string
@@ -147,16 +147,19 @@ def main(args):
                             if child.name == 'client-mac':
                                 client_mac = child.string
 
-                            if child.name == 'client-manuf':
+                            elif child.name == 'client-manuf':
                                 client_manuf = child.string
 
-                            if child.name == 'snr-info':
+                            elif child.name == 'channel':
+                                channel = child.string
+
+                            elif child.name == 'snr-info':
                                 for s in child.children:
                                     if s.name == 'last_signal_rssi':
                                         last_signal_rssi = s.string
                                         break
 
-                            if child.name == 'gps-info':
+                            elif child.name == 'gps-info':
                                 for s in child.children:
                                     if s.name == 'avg-lat':
                                         latitude = s.string
@@ -180,13 +183,14 @@ def main(args):
                             'client_manuf': client_manuf,
                             'first_seen': first_seen,
                             'last_seen': last_seen,
-                            'ssid_list': ','.join(ssid_set),
+                            'probed_essids': ','.join(ssid_set),
                             'network_type': network_type,
                             'rssi': last_signal_rssi,
                             'latitude': latitude,
                             'longitude': longitude,
-                            'essid': essid,
-                            'bssid': bssid
+                            'connected_essid': essid,
+                            'connected_bssid': bssid,
+                            'channel': channel
                         }
 
                         client_list.append(client_dict)
@@ -223,7 +227,7 @@ def main(args):
         outfilename = prefix + '.wireless-clients.csv'
         with open(outfilename, 'w', newline='', encoding='utf-8') as csvfile:
 
-            fieldnames = ['client_mac','client_manuf','first_seen','last_seen','ssid_list','network_type','rssi','latitude','longitude','essid','bssid']
+            fieldnames = ['client_mac','client_manuf','first_seen','last_seen','probed_essids','network_type','rssi','latitude','longitude','connected_essid','connected_bssid', 'channel']
 
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()

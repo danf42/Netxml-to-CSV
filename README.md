@@ -1,11 +1,14 @@
 # Netxml-to-CSV
+
 Convert *.netxml files to csv files
 
 ## Requirements
-Requires Beautiful Soup 
+
+Requires Beautiful Soup and lxml
 
 ## Usage
-```
+
+```python
 usage: process_netxml.py [-h] [-p PREFIX] input
 
 Convert netxml files to csv files
